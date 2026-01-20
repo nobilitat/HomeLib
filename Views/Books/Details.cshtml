@@ -1,0 +1,49 @@
+@model HomeLib.Models.Book
+
+@{
+    ViewData["Title"] = "Просмотр книги";
+}
+
+<h1>@Model.Title</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">Автор:</dt>
+        <dd class="col-sm-9">@Model.Author</dd>
+
+        <dt class="col-sm-3">Год издания:</dt>
+        <dd class="col-sm-9">@Model.PublishYear</dd>
+
+        <dt class="col-sm-3">Жанр:</dt>
+        <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Genre) ? "Не указан" : Model.Genre)</dd>
+
+        <dt class="col-sm-3">Издательство:</dt>
+        <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Publisher) ? "Не указано" : Model.Publisher)</dd>
+
+        <dt class="col-sm-3">Количество страниц:</dt>
+        <dd class="col-sm-9">@Model.PageCount</dd>
+
+        <dt class="col-sm-3">Язык:</dt>
+        <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Language) ? "Не указан" : Model.Language)</dd>
+
+        <dt class="col-sm-3">Дата добавления:</dt>
+        <dd class="col-sm-9">@Model.DateAdded.ToString("dd.MM.yyyy")</dd>
+
+        @if (!string.IsNullOrEmpty(Model.TableOfContents))
+        {
+            <dt class="col-sm-3">Оглавление:</dt>
+            <dd class="col-sm-9">
+                <div class="xml-content border p-2 bg-light">
+                    <pre class="mb-0"><code>@Model.TableOfContents</code></pre>
+                </div>
+            </dd>
+        }
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.BookID" class="btn btn-warning">Редактировать</a>
+    <a asp-action="Delete" asp-route-id="@Model.BookID" class="btn btn-danger">Удалить</a>
+    <a asp-action="Index" class="btn btn-secondary">Вернуться к списку</a>
+</div>
