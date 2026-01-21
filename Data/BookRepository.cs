@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
-using HomeLib.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Data.SqlClient;
-using System.Data;
+using HomeLib.Models;
 
 namespace HomeLib.Data
 {

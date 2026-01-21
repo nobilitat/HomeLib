@@ -1,15 +1,29 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using HomeLib.Data;
-using HomeLib.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using HomeLib.Data;
+using HomeLib.Models;
 
 namespace HomeLib.Controllers
 {
     public class BooksController : Controller
     {
+        static readonly string[] Languages =
+        [
+            "Русский", "Английский", "Французский", "Немецкий",
+            "Испанский", "Итальянский", "Китайский", "Японский"
+        ];
+
+        static readonly string[] Genres =
+        [
+            "Роман", "Детектив", "Фантастика", "Фэнтези", 
+            "Научная литература", "Биография", "Поэзия", "Драма",
+            "Приключения", "Исторический", "Ужасы", "Комедия",
+            "Триллер", "Мистика", "Научпоп", "Справочник"
+        ];
+
         private readonly IBookRepository _bookRepository;
 
         public BooksController(IBookRepository bookRepository)
@@ -39,19 +53,9 @@ namespace HomeLib.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
-            ViewBag.Languages = new SelectList(new[]
-            {
-                "Русский", "Английский", "Французский", "Немецкий",
-                "Испанский", "Итальянский", "Китайский", "Японский"
-            });
+            ViewBag.Languages = new SelectList(Languages);
 
-            ViewBag.Genres = new SelectList(new[]
-            {
-                "Роман", "Детектив", "Фантастика", "Фэнтези", 
-                "Научная литература", "Биография", "Поэзия", "Драма",
-                "Приключения", "Исторический", "Ужасы", "Комедия",
-                "Триллер", "Мистика", "Научпоп", "Справочник"
-            });
+            ViewBag.Genres = new SelectList(Genres);
 
             ViewBag.CurrentYear = DateTime.Now.Year;
 
@@ -81,19 +85,9 @@ namespace HomeLib.Controllers
                 }
             }
 
-            ViewBag.Languages = new SelectList(new[]
-            {
-                "Русский", "Английский", "Французский", "Немецкий",
-                "Испанский", "Итальянский", "Китайский", "Японский"
-            }, book.Language);
+            ViewBag.Languages = new SelectList(Languages, book.Language);
 
-            ViewBag.Genres = new SelectList(new[]
-            {
-                "Роман", "Детектив", "Фантастика", "Фэнтези",
-                "Научная литература", "Биография", "Поэзия", "Драма",
-                "Приключения", "Исторический", "Ужасы", "Комедия",
-                "Триллер", "Мистика", "Научпоп", "Справочник"
-            }, book.Genre);
+            ViewBag.Genres = new SelectList(Genres, book.Genre);
 
             ViewBag.CurrentYear = DateTime.Now.Year;
 
@@ -109,19 +103,9 @@ namespace HomeLib.Controllers
                 return NotFound();
             }
 
-            ViewBag.Languages = new SelectList(new[]
-            {
-                "Русский", "Английский", "Французский", "Немецкий",
-                "Испанский", "Итальянский", "Китайский", "Японский"
-            }, book.Language);
+            ViewBag.Languages = new SelectList(Languages, book.Language);
 
-            ViewBag.Genres = new SelectList(new[]
-            {
-                "Роман", "Детектив", "Фантастика", "Фэнтези",
-                "Научная литература", "Биография", "Поэзия", "Драма",
-                "Приключения", "Исторический", "Ужасы", "Комедия",
-                "Триллер", "Мистика", "Научпоп", "Справочник"
-            }, book.Genre);
+            ViewBag.Genres = new SelectList(Genres, book.Genre);
 
             ViewBag.CurrentYear = DateTime.Now.Year;
 
@@ -156,19 +140,9 @@ namespace HomeLib.Controllers
                 }
             }
 
-            ViewBag.Languages = new SelectList(new[]
-            {
-                "Русский", "Английский", "Французский", "Немецкий",
-                "Испанский", "Итальянский", "Китайский", "Японский"
-            }, book.Language);
+            ViewBag.Languages = new SelectList(Languages, book.Language);
 
-            ViewBag.Genres = new SelectList(new[]
-            {
-                "Роман", "Детектив", "Фантастика", "Фэнтези",
-                "Научная литература", "Биография", "Поэзия", "Драма",
-                "Приключения", "Исторический", "Ужасы", "Комедия",
-                "Триллер", "Мистика", "Научпоп", "Справочник"
-            }, book.Genre);
+            ViewBag.Genres = new SelectList(Genres, book.Genre);
 
             ViewBag.CurrentYear = DateTime.Now.Year;
 
@@ -198,7 +172,7 @@ namespace HomeLib.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return RedirectToAction(nameof(Delete), new { id = id, error = true });
+            return RedirectToAction(nameof(Delete), new { id, error = true });
         }
 
 
